@@ -4,7 +4,17 @@ A Grok-powered agent team that runs the 6 layers of an AI-native firm: sell the 
 
 Based on the 6-layer setup Tim Scheuer shared, inspired by Sequoia's "next $1T idea is the AI-native firm."
 
-![How it works](docs/demo.gif)
+![Grok Bots: chief of staff, 4 bots, 17 agents](docs/grok-bots.gif)
+
+## Two ways to run it
+
+| | Grok Bots (no code) | Python CLI |
+|---|---|---|
+| Where it runs | The Grok app (grok.com, Mac and mobile), in the cloud | Your own computer, terminal |
+| Needs | A Grok account with Grok Bot | Python + an xAI API key with credits |
+| You talk to it | By chatting: Chief of Staff first | `python run.py ...` |
+| Tools (Apollo, HubSpot, files) | Gmail, Calendar, Drive and other app connectors | Built-in actions, drafts saved to `outbox/` |
+| Start here | [Grok Bots setup](#run-it-as-grok-bots-no-terminal) | [Setup](#setup) |
 
 ```
 1 Acquisition -> 2 Nurture -> 3 Convert -> 4 Onboard -> 5 Fulfill
@@ -28,7 +38,29 @@ Based on the 6-layer setup Tim Scheuer shared, inspired by Sequoia's "next $1T i
 
 Safety by design: agents **never send anything**. Messages are saved to `outbox/` as drafts for you to approve. Every run is filed in `brain/runs/`.
 
-## Setup
+## Run it as Grok Bots (no terminal)
+
+1 chief of staff + 4 worker bots, built from the same 17 agents. Prompts are ready to paste in [`grok-bots/`](grok-bots/).
+
+| Bot | Agents inside | File |
+|---|---|---|
+| Chief of Staff | none. You message it first. It plans and tells you which bot and agent to use | `0-chief-of-staff.md` |
+| Acquisition | 5 acquisition + 4 nurture agents | `1-acquisition.md` |
+| Convert and Onboard | 3 convert + 2 onboard agents | `2-convert-onboard.md` |
+| Fulfill | sop-writer, service-delivery | `3-fulfill.md` |
+| Second Brain | brain-librarian | `4-second-brain.md` |
+
+1. In the Grok app, create a bot for each file (name it like the table).
+2. Send the file's text as its first message: "Save the following as your standing role and remember it permanently."
+3. Paste your own company details where it says `(paste your company.yaml here)`.
+4. Message **Chief of Staff** with a goal. It replies with a plan and the exact message to send the next bot, starting with `agent: <name>`.
+
+You paste its message into the right bot, then paste the result back and ask "what next". Bots work from what you give them; they don't see your live CRM, so they give search criteria instead of inventing names. Everything stays a draft until you approve it.
+
+Per-layer prompts (one per layer, if you prefer 6 smaller projects) are in [`grok-app/`](grok-app/).
+Regenerate both after editing an agent: `python tools/build_grok_app.py`
+
+## Setup (Python CLI)
 
 ```bash
 git clone https://github.com/rakeshSabbathi/grok-ai-native-firm-rakesh.git
@@ -51,10 +83,16 @@ pytest -q                   # offline sanity checks
 
 Workflows live in `workflows/workflows.yaml`. Add a step or a new workflow by editing YAML. Add an agent by dropping a markdown file in `agents/<layer>/` with `name`, `actions` and a prompt.
 
+### Under the hood
+
+![Layer flow](docs/demo.gif)
+
 ## Structure
 
 ```
 agents/      one markdown spec per agent, grouped by layer
+grok-bots/   paste-ready prompts: chief of staff + 4 bots
+grok-app/    paste-ready prompts: one per layer
 core/        grok.py (xAI client), agent.py (runner), actions.py (tools)
 workflows/   YAML pipelines per layer
 brain/       second brain: leads, calls, clients, sops, content, runs

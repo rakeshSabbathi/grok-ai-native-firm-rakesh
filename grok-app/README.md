@@ -1,6 +1,6 @@
 # Use the agents inside the Grok app (no API, no code)
 
-Each file here is one paste-ready instruction block for one layer.
+Each file here is one paste-ready instruction block for one layer. For the 5-bot setup (chief of staff + 4 bots) use `../grok-bots/` instead.
 
 1. In the Grok app, create a Project (or Custom Agent) per layer, named like the file.
 2. Paste the whole file into its instructions.
