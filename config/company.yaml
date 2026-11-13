@@ -1,0 +1,16 @@
+# Fill this in. Every agent reads it as context.
+company: "YOUR FIRM NAME"
+one_line: "We sell <outcome> to <ICP> at an agency price with software-like costs."
+productized_service:
+  name: "YOUR ONE PRODUCTIZED SERVICE"
+  outcome: "What the client gets"
+  price: "Fixed monthly or per-project price"
+  delivery_time: "e.g. 14 days"
+icp:
+  industries: ["TODO"]
+  company_size: "TODO"
+  geography: ["TODO"]
+  buyer_titles: ["Founder", "Head of Growth", "VP Sales"]
+  pains: ["TODO"]
+voice: "Direct, plain English, short sentences, no buzzwords."
+channels: [linkedin, email, cold-calling, x]

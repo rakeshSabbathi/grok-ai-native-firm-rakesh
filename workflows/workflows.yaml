@@ -1,0 +1,62 @@
+# Each step runs one agent. {input} = what you pass on the CLI, {previous} = output of the step before.
+acquisition:
+  description: "Layer 1 - map market, build lead list, write outbound, plan content"
+  steps:
+    - agent: tam-mapper
+      task: "Map the TAM and pick the first segment. Context: {input}"
+    - agent: lead-qualifier
+      task: "Build and qualify a lead list for this segment: {previous}"
+    - agent: outbound-writer
+      task: "Write 4-touch outbound for the saved leads. Segment notes: {previous}"
+    - agent: content-planner
+      task: "Plan 2 weeks of LinkedIn and X posts for this audience: {input}"
+
+engagement:
+  description: "Layer 1 - DM everyone who engaged with our posts"
+  steps:
+    - agent: engagement-responder
+      task: "Draft DMs for these people and what they engaged with: {input}"
+
+nurture:
+  description: "Layer 2 - lead magnet, webinar, newsletter, reactivation"
+  steps:
+    - agent: lead-magnet-builder
+      task: "Build a lead magnet. Topic or pain: {input}"
+    - agent: webinar-planner
+      task: "Plan the next webinar around this lead magnet: {previous}"
+    - agent: newsletter-writer
+      task: "Write this week's newsletter. Focus: {input}"
+    - agent: lead-reactivator
+      task: "Reactivate stale leads. Angle: {input}"
+
+convert:
+  description: "Layer 3 - pre-call research, call summary, CRM update"
+  steps:
+    - agent: account-researcher
+      task: "Research this account before our call: {input}"
+    - agent: call-notes-summarizer
+      task: "Summarize this call. Brief from earlier: {previous}. Raw notes: {input}"
+    - agent: crm-updater
+      task: "Update the CRM from this call summary: {previous}"
+
+onboard:
+  description: "Layer 4 - kickoff plan and contract/onboarding package"
+  steps:
+    - agent: kickoff-planner
+      task: "Plan the kickoff for this new client: {input}"
+    - agent: contract-onboarding
+      task: "Draft the contract outline and welcome email. Kickoff plan: {previous}"
+
+fulfill:
+  description: "Layer 5 - write the SOP, then deliver the service by it"
+  steps:
+    - agent: sop-writer
+      task: "Write the SOP for: {input}"
+    - agent: service-delivery
+      task: "Deliver this for the client following the SOP. Request: {input}"
+
+brain:
+  description: "Layer 6 - clean, link and index the second brain"
+  steps:
+    - agent: brain-librarian
+      task: "Re-index the brain and link related notes. Focus: {input}"
