@@ -4,6 +4,8 @@ A Grok-powered agent team that runs the 6 layers of an AI-native firm: sell the 
 
 Based on the 6-layer setup Tim Scheuer shared, inspired by Sequoia's "next $1T idea is the AI-native firm."
 
+![How it works](docs/demo.gif)
+
 ```
 1 Acquisition -> 2 Nurture -> 3 Convert -> 4 Onboard -> 5 Fulfill
                          \________ 6 Second brain (everything filed + linked) ________/
@@ -29,8 +31,8 @@ Safety by design: agents **never send anything**. Messages are saved to `outbox/
 ## Setup
 
 ```bash
-git clone https://github.com/rakeshSabbathi/grok-ai-native-firm.git
-cd grok-ai-native-firm
+git clone https://github.com/rakeshSabbathi/grok-ai-native-firm-rakesh.git
+cd grok-ai-native-firm-rakesh
 pip install -r requirements.txt
 cp .env.example .env        # add XAI_API_KEY (console.x.ai); Apollo/HubSpot keys optional
 ```
